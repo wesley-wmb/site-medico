@@ -52,14 +52,10 @@ export default function Header() {
         >
           {/* Logo */}
           <Link href="/" style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none", flexShrink: 0 }}>
-            <div
-              style={{
-                width: 30,
-                height: 30,
-                borderRadius: "50%",
-                flexShrink: 0,
-                background: "linear-gradient(135deg, #b8963e 0%, #7d5f22 100%)",
-              }}
+            <img
+              src="/logo.svg"
+              alt="Logo"
+              style={{ width: 34, height: 34, flexShrink: 0, display: "block" }}
             />
             <div>
               <div
