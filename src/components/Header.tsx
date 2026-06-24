@@ -2,95 +2,202 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { MessageCircle, Menu, X } from "lucide-react";
+import { ArrowRight, X, Menu } from "lucide-react";
+
+const navLinks = [
+  { label: "Procedimentos", href: "#procedimentos" },
+  { label: "Resultados", href: "#resultados" },
+  { label: "Sobre", href: "#sobre" },
+  { label: "Localização", href: "#localizacao" },
+];
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "glass shadow-sm py-3" : "bg-[var(--surface)] py-4"
-      }`}
-    >
-      <div className="container mx-auto px-6 md:px-10 flex items-center justify-between relative z-50">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
-          <div className="w-7 h-7 rounded-full bg-[var(--color-gold)] flex-shrink-0" />
-          <div>
-            <div className="text-[15px] font-medium text-[var(--color-text-main)]">
-              Dra. Ana Souza
-            </div>
-            <div className="text-[10px] text-[var(--color-subtle)] mt-[1px]">
-              Dermatologista · CRM-PR 00000
-            </div>
-          </div>
-        </Link>
-
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {["Procedimentos", "Resultados", "Sobre", "Blog"].map((item) => (
-            <Link
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className="text-[13px] text-[var(--color-muted)] hover:text-[var(--color-text-main)] transition-colors"
-            >
-              {item}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Desktop CTA */}
-        <Link
-          href="#agendar"
-          className="hidden md:flex items-center gap-2 bg-[#25D366] text-white px-5 py-2.5 rounded-full text-[13px] font-medium hover:opacity-90 transition-opacity"
+    <>
+      <header
+        className="header-bar"
+        style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 1000,
+          height: 64,
+          background: scrolled ? "rgba(249,246,241,.95)" : "rgba(249,246,241,.82)",
+          backdropFilter: "blur(20px) saturate(180%)",
+          WebkitBackdropFilter: "blur(20px) saturate(180%)",
+          borderBottom: ".5px solid rgba(18,16,8,.13)",
+          transition: "background .3s",
+        }}
+      >
+        {/* Inner constrained row */}
+        <div
+          style={{
+            maxWidth: 1200,
+            margin: "0 auto",
+            padding: "0 40px",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 24,
+          }}
         >
-          <MessageCircle className="w-4 h-4" />
-          Agendar avaliação
-        </Link>
-
-        {/* Mobile Toggle */}
-        <button
-          className="md:hidden p-2 text-[var(--color-text-main)]"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Menu"
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-white/95 backdrop-blur-md flex flex-col pt-24 px-6 pb-6 md:hidden">
-          <div className="flex flex-col gap-6">
-            {["Procedimentos", "Resultados", "Sobre", "Blog"].map((item) => (
-              <Link
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-2xl font-medium text-[var(--color-text-main)] border-b border-[var(--color-border-subtle)] pb-4"
+          {/* Logo */}
+          <Link href="/" style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none", flexShrink: 0 }}>
+            <div
+              style={{
+                width: 30,
+                height: 30,
+                borderRadius: "50%",
+                flexShrink: 0,
+                background: "linear-gradient(135deg, #b8963e 0%, #7d5f22 100%)",
+              }}
+            />
+            <div>
+              <div
+                className="font-display"
+                style={{ fontSize: 15, fontWeight: 400, color: "var(--color-text-main)", letterSpacing: "-0.01em", lineHeight: 1.2 }}
               >
-                {item}
+                Dra. Ana Souza
+              </div>
+              <div style={{ fontSize: 10, color: "var(--color-subtle)", marginTop: 1 }}>
+                Dermatologista · CRM-PR 00000 · RQE 00000
+              </div>
+            </div>
+          </Link>
+
+          {/* Desktop Nav */}
+          <nav className="header-nav" style={{ display: "flex", alignItems: "center", gap: 28 }}>
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                style={{ fontSize: 13, color: "var(--color-muted)", textDecoration: "none", transition: "color .2s" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-text-main)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-muted)")}
+              >
+                {link.label}
               </Link>
             ))}
+          </nav>
+
+          {/* Desktop CTA */}
+          <Link
+            href="#agendar"
+            className="header-cta"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 7,
+              background: "var(--color-dark-main)",
+              color: "#fff",
+              padding: "10px 20px",
+              borderRadius: 9999,
+              fontSize: 13,
+              fontWeight: 500,
+              textDecoration: "none",
+              flexShrink: 0,
+              transition: "opacity .2s, transform .2s",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.opacity = ".85"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = "none"; }}
+          >
+            Agendar avaliação
+            <ArrowRight style={{ width: 13, height: 13 }} />
+          </Link>
+
+          {/* Mobile toggle */}
+          <button
+            className="header-toggle"
+            onClick={() => setOpen(!open)}
+            aria-label="Menu"
+            style={{ background: "none", border: "none", cursor: "pointer", padding: 6, display: "none" }}
+          >
+            {open
+              ? <X style={{ width: 22, height: 22, color: "var(--color-text-main)" }} />
+              : <Menu style={{ width: 22, height: 22, color: "var(--color-text-main)" }} />
+            }
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Menu */}
+      {open && (
+        <div
+          className="mobile-menu-overlay"
+          style={{
+            position: "fixed",
+            inset: "64px 0 0 0",
+            background: "#fff",
+            zIndex: 999,
+            padding: "32px 40px",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          {navLinks.map((link) => (
             <Link
-              href="#agendar"
-              className="flex items-center justify-center gap-2 bg-[#111] text-white px-6 py-4 rounded-full text-[16px] font-medium w-full mt-4"
-              onClick={() => setMobileMenuOpen(false)}
+              key={link.label}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              className="font-display"
+              style={{
+                fontSize: 30,
+                fontWeight: 400,
+                color: "var(--color-text-main)",
+                letterSpacing: "-0.025em",
+                padding: "14px 0",
+                borderBottom: ".5px solid rgba(18,16,8,.07)",
+                display: "block",
+                textDecoration: "none",
+              }}
             >
-              <MessageCircle className="w-5 h-5" />
-              Falar pelo WhatsApp
+              {link.label}
             </Link>
-          </div>
+          ))}
+          <Link
+            href="#agendar"
+            onClick={() => setOpen(false)}
+            style={{
+              marginTop: 28,
+              background: "var(--color-dark-main)",
+              color: "#fff",
+              padding: "16px 24px",
+              borderRadius: 9999,
+              fontSize: 15,
+              fontWeight: 500,
+              textAlign: "center",
+              display: "block",
+              textDecoration: "none",
+            }}
+          >
+            Agendar avaliação
+          </Link>
         </div>
       )}
-    </header>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .header-nav { display: none !important; }
+          .header-cta { display: none !important; }
+          .header-toggle { display: flex !important; }
+        }
+        @media (min-width: 769px) {
+          .header-toggle { display: none !important; }
+          .mobile-menu-overlay { display: none !important; }
+        }
+        @media (max-width: 480px) {
+          .header-bar div[style] { padding: 0 20px !important; }
+        }
+      `}</style>
+    </>
   );
 }

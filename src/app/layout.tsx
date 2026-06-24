@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Fraunces } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -8,8 +8,15 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-fraunces",
+  style: ["normal", "italic"],
+});
+
 export const metadata: Metadata = {
-  title: "Dra. Ana Souza — Dermatologista em Curitiba",
+  title: "Dra. Ana Souza · Dermatologista em Curitiba",
   description: "Tratamentos personalizados com tecnologia de ponta para cuidar da sua pele. Dra. Ana Souza, especialista em rejuvenescimento e dermatologia clínica.",
   openGraph: {
     title: "Dra. Ana Souza — Dermatologista",
@@ -43,7 +50,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="pt-BR" className={`${inter.variable} h-full antialiased`} suppressHydrationWarning>
+    <html lang="pt-BR" className={`${inter.variable} ${fraunces.variable} h-full antialiased`} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"

@@ -1,152 +1,258 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, ShieldCheck, MessageCircle } from "lucide-react";
+import { MessageCircle, Lock } from "lucide-react";
 import React, { useState } from "react";
 
+const checks = [
+  "Vagas limitadas por semana",
+  "Dados protegidos pela LGPD",
+  "Atendimento presencial e por telemedicina",
+];
+
 export default function Agendamento() {
-  const [formData, setFormData] = useState({ nome: "", tel: "", proc: "" });
+  const [form, setForm] = useState({ nome: "", tel: "", proc: "" });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.nome || !formData.tel) {
+    if (!form.nome || !form.tel) {
       alert("Por favor, preencha seu nome e WhatsApp.");
       return;
     }
     const msg = encodeURIComponent(
-      `Olá! Meu nome é ${formData.nome} e gostaria de agendar uma avaliação${
-        formData.proc ? ` para ${formData.proc}` : ""
-      }. Meu WhatsApp é ${formData.tel}.`
+      `Olá! Meu nome é ${form.nome} e gostaria de agendar uma avaliação${form.proc ? ` para ${form.proc}` : ""}. Meu WhatsApp é ${form.tel}.`
     );
     window.open(`https://wa.me/5541900000000?text=${msg}`, "_blank");
   };
 
   return (
-    <section id="agendar" className="py-16 md:py-24 lg:py-32 bg-[var(--color-dark-main)] text-white">
-      <div className="container mx-auto px-6 md:px-10 max-w-6xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          
-          {/* Informações */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+    <section id="agendar" style={{ background: "var(--color-dark-main)", padding: "96px 40px", position: "relative", overflow: "hidden" }}>
+      {/* Glow */}
+      <div
+        style={{
+          position: "absolute",
+          top: -200,
+          right: -200,
+          width: 600,
+          height: 600,
+          borderRadius: "50%",
+          background: "radial-gradient(ellipse, rgba(184,150,62,.08) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }}
+      />
+
+      <div
+        style={{ maxWidth: 1160, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start", position: "relative", zIndex: 1 }}
+        className="cta-grid"
+      >
+        {/* Left */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 20, background: "rgba(184,150,62,.12)", border: ".5px solid rgba(184,150,62,.3)", borderRadius: 9999, padding: "5px 14px" }}>
+            <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase" as const, color: "var(--color-gold)" }}>Agendamento</span>
+          </div>
+
+          <h2
+            className="heading-display"
+            style={{ fontSize: "clamp(30px, 3.5vw, 48px)", color: "#fff", marginBottom: 16 }}
           >
-            <div className="mb-6">
-              <span className="text-[13px] font-semibold tracking-[0.15em] text-[var(--color-gold)] uppercase">
-                Agendamento
-              </span>
-            </div>
-            
-            <h2 className="text-4xl md:text-5xl font-medium tracking-tight mb-6 leading-tight">
-              Agende sua avaliação e descubra o tratamento ideal
-            </h2>
-            
-            <p className="text-[18px] text-[#aaa] leading-relaxed mb-12 font-light max-w-lg">
-              Consulta personalizada. Sem compromisso. Resposta em até 1h pelo WhatsApp.
-            </p>
+            Agende sua avaliação<br />e descubra o<br /><em>tratamento ideal</em>
+          </h2>
 
-            <div className="flex flex-col gap-6 mb-10">
-              <div className="flex items-center gap-4">
-                <CheckCircle2 className="w-6 h-6 text-[var(--color-gold)]" />
-                <span className="text-[16px] text-[#eee] font-medium">Vagas limitadas por semana</span>
-              </div>
-              <div className="flex items-center gap-4">
-                <CheckCircle2 className="w-6 h-6 text-[var(--color-gold)]" />
-                <span className="text-[16px] text-[#eee] font-medium">Atendimento presencial e por telemedicina</span>
-              </div>
-              <div className="flex items-center gap-4">
-                <ShieldCheck className="w-6 h-6 text-[var(--color-gold)]" />
-                <span className="text-[16px] text-[#eee] font-medium">Dados protegidos pela LGPD</span>
-              </div>
-            </div>
-          </motion.div>
+          <p style={{ fontSize: 14, color: "rgba(255,255,255,.42)", lineHeight: 1.7, marginBottom: 40 }}>
+            Consulta personalizada. Sem compromisso. Resposta em até 1h pelo WhatsApp.
+          </p>
 
-          {/* Formulário */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-white/5 border border-white/10 rounded-[var(--radius-lg)] p-8 backdrop-blur-md"
-          >
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                  <label htmlFor="nome" className="block text-[12px] text-[#888] mb-2">Nome completo</label>
-                  <input
-                    id="nome"
-                    type="text"
-                    required
-                    value={formData.nome}
-                    onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
-                    className="w-full bg-white/5 border border-white/10 rounded-[var(--radius-sm)] px-4 py-3 text-[14px] text-white outline-none focus:border-[var(--color-gold)] transition-colors placeholder-[#555]"
-                    placeholder="Seu nome"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="tel" className="block text-[12px] text-[#888] mb-2">WhatsApp</label>
-                  <input
-                    id="tel"
-                    type="tel"
-                    required
-                    inputMode="tel"
-                    value={formData.tel}
-                    onChange={(e) => setFormData({ ...formData, tel: e.target.value })}
-                    className="w-full bg-white/5 border border-white/10 rounded-[var(--radius-sm)] px-4 py-3 text-[14px] text-white outline-none focus:border-[var(--color-gold)] transition-colors placeholder-[#555]"
-                    placeholder="(41) 9 0000-0000"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="proc" className="block text-[12px] text-[#888] mb-2">Procedimento de interesse (Opcional)</label>
-                <select
-                  id="proc"
-                  value={formData.proc}
-                  onChange={(e) => setFormData({ ...formData, proc: e.target.value })}
-                  className="w-full bg-white/5 border border-white/10 rounded-[var(--radius-sm)] px-4 py-3 text-[14px] text-[#ccc] outline-none focus:border-[var(--color-gold)] transition-colors appearance-none"
+          <div style={{ display: "flex", flexDirection: "column" as const, gap: 14 }}>
+            {checks.map((c, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <div
+                  style={{
+                    width: 20,
+                    height: 20,
+                    borderRadius: "50%",
+                    background: "rgba(184,150,62,.12)",
+                    border: ".5px solid rgba(184,150,62,.3)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                  }}
                 >
-                  <option value="" className="text-black">Selecione o procedimento</option>
-                  <option value="Toxina botulínica" className="text-black">Toxina botulínica</option>
-                  <option value="Bioestimuladores de colágeno" className="text-black">Bioestimuladores de colágeno</option>
-                  <option value="Tratamento de manchas" className="text-black">Tratamento de manchas</option>
-                  <option value="Preenchimento facial" className="text-black">Preenchimento facial</option>
-                  <option value="Laser fracionado" className="text-black">Laser fracionado</option>
-                  <option value="Dermatologia clínica" className="text-black">Dermatologia clínica</option>
-                  <option value="Outro" className="text-black">Outro</option>
-                </select>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ width: 10, height: 10, color: "var(--color-gold)" }}>
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                </div>
+                <span style={{ fontSize: 13, color: "rgba(255,255,255,.5)" }}>{c}</span>
               </div>
+            ))}
+          </div>
+        </motion.div>
 
-              <button
-                type="submit"
-                className="w-full bg-[var(--color-gold)] text-white rounded-[var(--radius-xl)] py-4 text-[15px] font-medium hover:opacity-90 transition-opacity mt-2"
-              >
-                Quero agendar minha avaliação →
-              </button>
-            </form>
+        {/* Form */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          style={{
+            background: "rgba(255,255,255,.05)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: ".5px solid rgba(255,255,255,.1)",
+            borderRadius: 28,
+            padding: 32,
+          }}
+        >
+          <div style={{ fontSize: 16, fontWeight: 500, color: "#fff", marginBottom: 24 }}>Solicitar avaliação gratuita</div>
 
-            <div className="flex flex-col items-center gap-4 mt-6">
-              <div className="flex items-center gap-3 text-[13px] text-[#666]">
-                <div className="w-10 h-[1px] bg-white/10" />
-                ou
-                <div className="w-10 h-[1px] bg-white/10" />
+          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column" as const, gap: 0 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 14 }} className="form-row-grid">
+              <div>
+                <label style={{ display: "block", fontSize: 11, color: "rgba(255,255,255,.38)", marginBottom: 6, letterSpacing: "0.04em" }}>Nome completo</label>
+                <input
+                  type="text"
+                  required
+                  value={form.nome}
+                  onChange={(e) => setForm({ ...form, nome: e.target.value })}
+                  placeholder="Seu nome"
+                  style={{
+                    width: "100%",
+                    background: "rgba(255,255,255,.06)",
+                    border: ".5px solid rgba(255,255,255,.12)",
+                    borderRadius: 14,
+                    padding: "12px 16px",
+                    fontSize: 14,
+                    color: "rgba(255,255,255,.85)",
+                    outline: "none",
+                    fontFamily: "inherit",
+                    transition: "border-color .2s",
+                  }}
+                  onFocus={(e) => (e.target.style.borderColor = "rgba(184,150,62,.5)")}
+                  onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,.12)")}
+                />
               </div>
-              <a
-                href="https://wa.me/5541900000000?text=Olá,%20gostaria%20de%20agendar%20uma%20avaliação"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-[#25D366] text-[14px] font-medium hover:text-[#1da851] transition-colors"
-              >
-                <MessageCircle className="w-4 h-4" />
-                Fale direto pelo WhatsApp
-              </a>
+              <div>
+                <label style={{ display: "block", fontSize: 11, color: "rgba(255,255,255,.38)", marginBottom: 6, letterSpacing: "0.04em" }}>WhatsApp</label>
+                <input
+                  type="tel"
+                  required
+                  inputMode="tel"
+                  value={form.tel}
+                  onChange={(e) => setForm({ ...form, tel: e.target.value })}
+                  placeholder="(41) 9 0000-0000"
+                  style={{
+                    width: "100%",
+                    background: "rgba(255,255,255,.06)",
+                    border: ".5px solid rgba(255,255,255,.12)",
+                    borderRadius: 14,
+                    padding: "12px 16px",
+                    fontSize: 14,
+                    color: "rgba(255,255,255,.85)",
+                    outline: "none",
+                    fontFamily: "inherit",
+                    transition: "border-color .2s",
+                  }}
+                  onFocus={(e) => (e.target.style.borderColor = "rgba(184,150,62,.5)")}
+                  onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,.12)")}
+                />
+              </div>
             </div>
-          </motion.div>
 
-        </div>
+            <div style={{ marginBottom: 14 }}>
+              <label style={{ display: "block", fontSize: 11, color: "rgba(255,255,255,.38)", marginBottom: 6, letterSpacing: "0.04em" }}>Procedimento de interesse</label>
+              <select
+                value={form.proc}
+                onChange={(e) => setForm({ ...form, proc: e.target.value })}
+                style={{
+                  width: "100%",
+                  background: "rgba(255,255,255,.06)",
+                  border: ".5px solid rgba(255,255,255,.12)",
+                  borderRadius: 14,
+                  padding: "12px 16px",
+                  fontSize: 14,
+                  color: form.proc ? "rgba(255,255,255,.85)" : "rgba(255,255,255,.45)",
+                  outline: "none",
+                  fontFamily: "inherit",
+                  cursor: "pointer",
+                  transition: "border-color .2s",
+                }}
+                onFocus={(e) => (e.target.style.borderColor = "rgba(184,150,62,.5)")}
+                onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,.12)")}
+              >
+                <option value="" style={{ color: "#111" }}>Selecione o procedimento</option>
+                <option style={{ color: "#111" }}>Toxina botulínica</option>
+                <option style={{ color: "#111" }}>Bioestimuladores de colágeno</option>
+                <option style={{ color: "#111" }}>Tratamento de manchas</option>
+                <option style={{ color: "#111" }}>Preenchimento facial</option>
+                <option style={{ color: "#111" }}>Laser fracionado</option>
+                <option style={{ color: "#111" }}>Dermatologia clínica</option>
+                <option style={{ color: "#111" }}>Outro</option>
+              </select>
+            </div>
+
+            <button
+              type="submit"
+              style={{
+                width: "100%",
+                background: "linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%)",
+                color: "#fff",
+                borderRadius: 9999,
+                padding: 15,
+                fontSize: 14,
+                fontWeight: 600,
+                marginTop: 8,
+                cursor: "pointer",
+                border: "none",
+                fontFamily: "inherit",
+                letterSpacing: "0.02em",
+                transition: "transform .2s, box-shadow .2s, opacity .2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.boxShadow = "0 8px 24px rgba(184,150,62,.35)";
+                e.currentTarget.style.opacity = ".95";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "none";
+                e.currentTarget.style.boxShadow = "none";
+                e.currentTarget.style.opacity = "1";
+              }}
+            >
+              Quero agendar minha avaliação →
+            </button>
+          </form>
+
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 12, fontSize: 12, color: "rgba(255,255,255,.28)" }}>
+            ou
+            <a
+              href="https://wa.me/5541900000000?text=Olá,%20gostaria%20de%20agendar%20uma%20avaliação"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#4ade80", fontWeight: 500, display: "flex", alignItems: "center", gap: 4, textDecoration: "none" }}
+            >
+              <MessageCircle style={{ width: 14, height: 14 }} />
+              fale direto pelo WhatsApp
+            </a>
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 5, marginTop: 10, fontSize: 10, color: "rgba(255,255,255,.18)" }}>
+            <Lock style={{ width: 11, height: 11 }} />
+            Seus dados estão protegidos conforme a LGPD
+          </div>
+        </motion.div>
       </div>
+
+      <style>{`
+        @media (max-width: 960px) {
+          .cta-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+          .form-row-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   );
 }
