@@ -17,8 +17,8 @@ export default function Home() {
         <Hero />
         <Metricas />
         <Procedimentos />
-        <Sobre />
         <Depoimentos />
+        <Sobre />
         <Agendamento />
         <Localizacao />
       </main>

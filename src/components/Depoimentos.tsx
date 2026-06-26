@@ -3,9 +3,11 @@
 import { motion } from "framer-motion";
 
 const depos = [
-  { initials: "AS", name: "Ana S.", city: "São José dos Pinhais", text: '"Resultado incrível com o Botox! Natural, sem parecer que fiz nada. A equipe é super atenciosa e profissional. Indico demais!"', tag: "Botox" },
-  { initials: "JM", name: "Juliana M.", city: "São José dos Pinhais", text: '"Fiz o preenchimento labial e ficou perfeito! Volume natural, sem exagero. Me sinto muito mais confiante com meu sorriso."', tag: "Lábios" },
-  { initials: "FT", name: "Fábio Tenório", city: "São José dos Pinhais", text: '"Fiz meu tratamento de alopecia areata na Infinity e o problema foi 100% solucionado!!! Continuo fazendo tratamento para alopecia androgenetica e já estou vendo resultados no preenchimento das falhas!!! Recomendo 100%!!!"', tag: "Tricologia" },
+  { initials: "FT", name: "Fábio Tenório", city: "São José dos Pinhais", text: '"Fiz meu tratamento de alopecia areata na Infinity e o problema foi 100% solucionado!!! Continuo fazendo tratamento para alopecia androgenetica e já estou vendo resultados no preenchimento das falhas!!! Recomendo 100%!!!"', tag: "Tricologia", image: "/fabio-tricologia.png" },
+  { initials: "CM", name: "Camila M.", city: "São José dos Pinhais", text: '"Fiz o Endolaser para contorno facial e o resultado superou todas as expectativas! Meu rosto ficou muito mais definido e harmonioso. Procedimento seguro, rápido e sem cirurgia. Recomendo de olhos fechados!"', tag: "Endolaser", image: "/endolaser-contorno.jpg" },
+  { initials: "RL", name: "Rafaela L.", city: "São José dos Pinhais", text: '"Nunca imaginei que um tratamento estético pudesse me devolver tanta autoestima. O resultado foi natural, respeitando minha essência. Equipe incrível, me senti acolhida em cada etapa!"', tag: "Harmonização", image: "/resultado-1.jpg" },
+  { initials: "PS", name: "Patrícia S.", city: "São José dos Pinhais", text: '"Resultado acima do esperado! Fui com receio e saí completamente apaixonada. Cada detalhe foi pensado com muito cuidado e carinho. Com certeza voltarei para outros procedimentos."', tag: "Bioestimulador", image: "/resultado-2.jpg" },
+  { initials: "MR", name: "Mariana R.", city: "São José dos Pinhais", text: '"Transformação real e segura. Fui muito bem orientada antes e depois do procedimento. O cuidado da equipe faz toda a diferença — recomendo de olhos fechados para quem busca qualidade!"', tag: "Botox", image: "/resultado-3.jpg" },
 ];
 
 export default function Depoimentos() {
@@ -30,6 +32,14 @@ export default function Depoimentos() {
               </div>
               <div style={{ color: "var(--color-gold)", fontSize: 12, letterSpacing: 2, marginBottom: 8 }}>★★★★★</div>
               <p style={{ fontSize: 13, color: "var(--color-muted)", lineHeight: 1.7, fontStyle: "italic", marginBottom: 12 }}>{d.text}</p>
+              {d.image && (
+                <div style={{ position: "relative", borderRadius: 12, overflow: "hidden", marginBottom: 12 }}>
+                  <img src={d.image} alt="Resultado" style={{ width: "100%", display: "block", objectFit: "contain", background: "#000" }} />
+                  <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
+                    <div style={{ background: "rgba(0,0,0,.45)", backdropFilter: "blur(2px)", borderRadius: 9999, padding: "3px 12px", fontSize: 10, color: "#fff", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" as const }}>Antes · Depois</div>
+                  </div>
+                </div>
+              )}
               <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, color: "var(--color-gold-dark)", background: "var(--color-gold-light)", padding: "3px 10px", borderRadius: 9999, fontWeight: 500 }}>{d.tag}</span>
             </motion.div>
           ))}

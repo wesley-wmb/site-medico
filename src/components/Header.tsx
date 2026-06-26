@@ -40,7 +40,7 @@ export default function Header() {
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px", height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
           <Link href="/" style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none", flexShrink: 0 }}>
             <img
-              src="https://ugc.production.linktr.ee/07f41350-18da-4850-9fc4-df3a7db7afeb_Infinity-LOGO.png"
+              src="/logo.svg"
               alt="Logo Infinity Estética"
               style={{ width: 38, height: 38, flexShrink: 0, display: "block", objectFit: "contain" }}
             />
@@ -49,7 +49,7 @@ export default function Header() {
                 Infinity Estética
               </div>
               <div style={{ fontSize: 10, color: "var(--color-subtle)", marginTop: 1 }}>
-                Tricologia Avançada · São José dos Pinhais
+                Estética Avançada · São José dos Pinhais
               </div>
             </div>
           </Link>
