@@ -1,0 +1,59 @@
+"use client";
+
+import { motion } from "framer-motion";
+
+const depos = [
+  { initials: "FT", name: "Fábio Tenório", city: "São José dos Pinhais", text: '"Fiz meu tratamento de alopecia areata na Infinity e o problema foi 100% solucionado!!! Continuo fazendo tratamento para alopecia androgenetica e já estou vendo resultados no preenchimento das falhas!!! Recomendo 100%!!!"', tag: "Tricologia", image: "/infinity/fabio-tricologia.png" },
+  { initials: "CM", name: "Camila M.", city: "São José dos Pinhais", text: '"Fiz o Endolaser para contorno facial e o resultado superou todas as expectativas! Meu rosto ficou muito mais definido e harmonioso. Procedimento seguro, rápido e sem cirurgia. Recomendo de olhos fechados!"', tag: "Endolaser", image: "/infinity/endolaser-contorno.jpg" },
+  { initials: "RL", name: "Rafaela L.", city: "São José dos Pinhais", text: '"Nunca imaginei que um tratamento estético pudesse me devolver tanta autoestima. O resultado foi natural, respeitando minha essência. Equipe incrível, me senti acolhida em cada etapa!"', tag: "Harmonização", image: "/infinity/resultado-1.jpg" },
+  { initials: "PS", name: "Patrícia S.", city: "São José dos Pinhais", text: '"Resultado acima do esperado! Fui com receio e saí completamente apaixonada. Cada detalhe foi pensado com muito cuidado e carinho. Com certeza voltarei para outros procedimentos."', tag: "Bioestimulador", image: "/infinity/resultado-2.jpg" },
+  { initials: "MR", name: "Mariana R.", city: "São José dos Pinhais", text: '"Transformação real e segura. Fui muito bem orientada antes e depois do procedimento. O cuidado da equipe faz toda a diferença — recomendo de olhos fechados para quem busca qualidade!"', tag: "Botox", image: "/infinity/resultado-3.jpg" },
+];
+
+export default function Depoimentos() {
+  return (
+    <section id="depoimentos" style={{ background: "var(--color-bg)", padding: "96px 40px" }}>
+      <div style={{ maxWidth: 1160, margin: "0 auto" }}>
+        <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ textAlign: "center", marginBottom: 48 }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 16, background: "var(--color-gold-light)", border: ".5px solid rgba(124,92,69,.3)", borderRadius: 9999, padding: "5px 14px" }}>
+            <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase" as const, color: "var(--color-gold-dark)" }}>Depoimentos</span>
+          </div>
+          <h2 className="heading-display" style={{ fontSize: "clamp(28px, 3vw, 44px)", marginBottom: 8 }}>O que dizem nossos <em>pacientes</em></h2>
+        </motion.div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12 }} className="depo-grid">
+          {depos.map((d, i) => (
+            <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}
+              style={{ border: ".5px solid var(--color-border-subtle)", borderRadius: 20, padding: 24, background: "var(--color-surface)", transition: "transform .25s, box-shadow .25s, border-color .2s" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+                <div style={{ width: 38, height: 38, borderRadius: "50%", background: "var(--color-gold-light)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 500, color: "var(--color-gold-dark)", flexShrink: 0 }}>{d.initials}</div>
+                <div><div style={{ fontSize: 13, fontWeight: 500, color: "var(--color-text-main)" }}>{d.name}</div><div style={{ fontSize: 11, color: "var(--color-subtle)" }}>{d.city}</div></div>
+              </div>
+              <div style={{ color: "var(--color-gold)", fontSize: 12, letterSpacing: 2, marginBottom: 8 }}>★★★★★</div>
+              <p style={{ fontSize: 13, color: "var(--color-muted)", lineHeight: 1.7, fontStyle: "italic", marginBottom: 12 }}>{d.text}</p>
+              {d.image && (
+                <div style={{ position: "relative", borderRadius: 12, overflow: "hidden", marginBottom: 12 }}>
+                  <img src={d.image} alt="Resultado" style={{ width: "100%", display: "block", objectFit: "contain", background: "#000" }} />
+                  <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
+                    <div style={{ background: "rgba(0,0,0,.45)", backdropFilter: "blur(2px)", borderRadius: 9999, padding: "3px 12px", fontSize: 10, color: "#fff", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" as const }}>Antes · Depois</div>
+                  </div>
+                </div>
+              )}
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, color: "var(--color-gold-dark)", background: "var(--color-gold-light)", padding: "3px 10px", borderRadius: 9999, fontWeight: 500 }}>{d.tag}</span>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}
+          style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 32, paddingTop: 28, borderTop: ".5px solid var(--color-border-subtle)", flexWrap: "wrap" as const }}>
+          <span style={{ fontSize: 13, fontWeight: 600, color: "var(--color-subtle)" }}>Google</span>
+          <span className="font-display" style={{ fontSize: 26, fontWeight: 400, color: "var(--color-text-main)", letterSpacing: "-0.03em" }}>5.0</span>
+          <span style={{ color: "var(--color-gold)", fontSize: 14, letterSpacing: 2 }}>★★★★★</span>
+          <span style={{ fontSize: 13, color: "var(--color-muted)" }}>avaliações verificadas no Google</span>
+          <span style={{ marginLeft: "auto", fontSize: 11, color: "var(--color-subtle)", fontStyle: "italic" }}>Publicadas pelos próprios pacientes</span>
+        </motion.div>
+      </div>
+      <style>{`@media (max-width: 960px) { .depo-grid { grid-template-columns: 1fr !important; } }`}</style>
+    </section>
+  );
+}
