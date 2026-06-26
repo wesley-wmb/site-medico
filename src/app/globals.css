@@ -2,11 +2,11 @@
 
 @theme inline {
   /* Colors */
-  --color-gold: #b8963e;
-  --color-gold-light: #f5eed9;
-  --color-gold-dark: #7d5f22;
-  --color-bg: #f9f6f1;
-  --color-bg2: #f1ede5;
+  --color-gold: #7C5C45;
+  --color-gold-light: #F2E8DF;
+  --color-gold-dark: #5C3D28;
+  --color-bg: #FAF8F5;
+  --color-bg2: #F0E9E0;
   --color-surface: #ffffff;
   --color-dark-main: #0c0c0b;
   --color-dark-2: #141412;
@@ -81,7 +81,7 @@ body::before {
 
 /* Glassmorphism */
 .glass {
-  background: rgba(249, 246, 241, 0.82);
+  background: rgba(250, 248, 245, 0.82);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
 }

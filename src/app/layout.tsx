@@ -16,17 +16,14 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Dra. Ana Souza · Dermatologista em Curitiba",
-  description: "Tratamentos personalizados com tecnologia de ponta para cuidar da sua pele. Dra. Ana Souza, especialista em rejuvenescimento e dermatologia clínica.",
+  title: "Infinity Estética · Harmonização Facial e Corporal em São José dos Pinhais",
+  description: "Sua melhor versão começa aqui. Harmonização Facial e Corporal, Emagrecimento e Rejuvenescimento com tecnologia avançada em São José dos Pinhais, PR.",
   openGraph: {
-    title: "Dra. Ana Souza — Dermatologista",
-    description: "Tratamentos personalizados com tecnologia de ponta para cuidar da sua pele em Curitiba, PR.",
+    title: "Infinity Estética e Tricologia Avançada",
+    description: "Harmonização Facial e Corporal, Emagrecimento e Rejuvenescimento em São José dos Pinhais, PR.",
     type: "website",
     locale: "pt_BR",
   },
-  alternates: {
-    canonical: "https://draanasouza.com.br", // Substituir pelo domínio real
-  }
 };
 
 export default function RootLayout({
@@ -34,19 +31,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Schema markup
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Physician",
-    "name": "Dra. Ana Souza",
-    "medicalSpecialty": "Dermatology",
+    "@type": "HealthAndBeautyBusiness",
+    "name": "Infinity Estética e Tricologia Avançada",
+    "description": "Harmonização Facial e Corporal, Emagrecimento e Rejuvenescimento.",
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "Curitiba",
+      "addressLocality": "São José dos Pinhais",
       "addressRegion": "PR",
       "addressCountry": "BR"
     },
-    "description": "Especialista em rejuvenescimento e dermatologia clínica."
+    "telephone": "+5541991078805",
+    "url": "https://www.instagram.com/infinity.esteticaavancada/"
   };
 
   return (

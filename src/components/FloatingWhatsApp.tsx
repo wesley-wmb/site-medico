@@ -1,10 +1,12 @@
 import { MessageCircle } from "lucide-react";
 import Link from "next/link";
 
+const WA = "5541991078805";
+
 export default function FloatingWhatsApp() {
   return (
     <Link
-      href="https://wa.me/5541900000000?text=Olá,%20gostaria%20de%20agendar%20uma%20avaliação"
+      href={`https://wa.me/${WA}?text=Olá,%20gostaria%20de%20agendar%20uma%20avaliação`}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar pelo WhatsApp"
